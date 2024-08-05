@@ -5,19 +5,22 @@ import TodoRes from "./components/TodoRes";
 import { ITypes } from "./types/ITypes";
 
 function App() {
-  const [todo, setTodo] = useState<string>("")
-const [todos, setTodos] = useState<ITypes[]>([]);
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<ITypes[]>([]);
 
-const addFunc =(e: React.FormEvent) =>{
-  e.preventDefault();
-  setTodos(prev =>([...prev,{todo:todo, id:todos.length+1, isColor:false}]));
-  setTodo('');
-}
-console.log("todos", todos);
+  const addFunc = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTodos((prev) => [
+      ...prev,
+      { todo: todo, id: todos.length + 1, isColor: false },
+    ]);
+    setTodo("");
+  };
+  console.log("todos", todos);
   return (
     <div>
       <TodoInput addFunc={addFunc} todo={todo} setTodo={setTodo} />
-      <TodoRes />
+      <TodoRes todos={todos} setTodos={setTodos} />
     </div>
   );
 }
