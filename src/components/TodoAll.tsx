@@ -1,27 +1,33 @@
-import { ITypes } from "../types/ITypes";
+import React from "react";
+import { ITypesAll } from "../types/ITypes";
 
 interface TodoResProps {
-  todos: ITypes[];
-  setTodos: React.Dispatch<React.SetStateAction<ITypes[]>>
+  allTodos: ITypesAll[];
+  setAllTodos: React.Dispatch<React.SetStateAction<ITypesAll[]>>;
+  handleEdit: (id: number) => void;
 }
 
-const TodoRes: React.FC<TodoResProps> = ({ todos, setTodos }) => {
+const TodoAll: React.FC<TodoResProps> = ({
+  allTodos,
+  setAllTodos,
+  handleEdit,
+}) => {
   const deleteFunc = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setAllTodos(allTodos.filter((todo) => todo.id !== id));
   };
 
   const complateFunc = (id: number) => {
-    setTodos(
-      todos.map((td) => (td.id == id ? { ...td, isColor: !td.isColor } : td))
+    setAllTodos(
+      allTodos.map((td) =>
+        td.id === id ? { ...td, isColor: !td.isColor } : td
+      )
     );
   };
-  // const arrangeFunc = (oneTodo: ITypes) => {
-  //   setTodo(oneTodo.todo);
-  // };
+
   return (
     <div>
-      {todos &&
-        todos.map((oneTodo, i) => {
+      {allTodos &&
+        allTodos.map((oneTodo, i) => {
           const backgroundColor = oneTodo.isColor ? "green" : "purple";
 
           return (
@@ -42,8 +48,8 @@ const TodoRes: React.FC<TodoResProps> = ({ todos, setTodos }) => {
               <div>{oneTodo.todo}</div>
               <div style={{ display: "flex", gap: "10px", cursor: "pointer" }}>
                 <span onClick={() => deleteFunc(oneTodo.id)}>delete</span>
-                <span onClick={() => complateFunc(oneTodo.id)}>complate</span>
-                {/* <span onClick={() => arrangeFunc(oneTodo)}>arange</span> */}
+                <span onClick={() => complateFunc(oneTodo.id)}>complete</span>
+                <span onClick={() => handleEdit(oneTodo.id)}>edit</span>
               </div>
             </div>
           );
@@ -52,4 +58,4 @@ const TodoRes: React.FC<TodoResProps> = ({ todos, setTodos }) => {
   );
 };
 
-export default TodoRes;
+export default TodoAll;

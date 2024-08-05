@@ -8,8 +8,9 @@ interface TodoInputProps {
 }
 
 const TodoInput: React.FC<TodoInputProps> = ({ todo, setTodo, addFunc }) => {
+
   return (
-    <form onSubmit={e => addFunc(e)}>
+    <form onSubmit={(e) => addFunc(e)}>
       <input
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
@@ -17,6 +18,9 @@ const TodoInput: React.FC<TodoInputProps> = ({ todo, setTodo, addFunc }) => {
         placeholder="write a duty"
       />
       <button type="submit">Add</button>
+      {/* <button type="submit" onClick={() => updateFunc(todo)}>
+        Update
+      </button> */}
     </form>
   );
 };
